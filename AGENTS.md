@@ -2,31 +2,31 @@
 
 ## Project structure and module organization
 
-This repository is currently an empty scaffold. As the agent cost-audit skill is implemented, keep the root limited to entry-point and governance files such as `SKILL.md`, `README.md`, and `AGENTS.md`. Put deterministic helpers in `scripts/`, detailed provider or pricing notes in `references/`, reusable report templates in `assets/`, and automated checks in `tests/`. Mirror implementation names in tests where practical; for example, `scripts/calculate_costs.py` should have `tests/test_calculate_costs.py`.
+Keep the installable entry point in `SKILL.md` and user instructions in `README.md`. The standard-library CLI lives at `scripts/audit_report.py`; reusable schema and methodology notes belong in `references/`. Put automated checks in `tests/` and sanitized inputs in `tests/fixtures/`. `handoff/`, `design/`, and `samples/` contain migration or report materials, not runtime dependencies unless explicitly referenced. Generated local reports belong outside the repository or in an ignored output directory.
 
 ## Build, test, and development commands
 
-No dependency manifest, build system, linter, or test runner is committed yet. After Git initialization, use these checks for documentation-only changes:
-
 ```bash
-git diff --check
-rg -n "TODO|FIXME" --glob '!AGENTS.md' .
+python3 -m compileall -q scripts tests
+python3 -m unittest discover -s tests -v
+python3 scripts/audit_report.py validate --input tests/fixtures/minimal-audit-snapshot.json
+python3 scripts/audit_report.py build --input tests/fixtures/minimal-audit-snapshot.json --output-dir /tmp/agent-cost-audit
 ```
 
-The first executable-code change must add reproducible setup, lint, and test commands to `README.md` and CI. Commit the relevant tool configuration; do not rely on globally installed dependencies or undocumented local state.
+Compilation catches syntax errors; unit tests cover behavior; `validate` checks the synthetic fixture; `build` exercises all four outputs. The project has no third-party runtime dependencies.
 
 ## Coding style and naming conventions
 
-Use UTF-8, LF line endings, and sentence-case Markdown headings. Keep instructions task-oriented and wrap commands, paths, configuration keys, and model identifiers in backticks. Prefer `snake_case` for Python modules and functions, `PascalCase` for classes, and kebab-case for Markdown reference files. Format code with the language's standard formatter, introduced and pinned with the code that requires it.
+Use UTF-8, LF line endings, four-space Python indentation, and sentence-case Markdown headings. Prefer `snake_case` for modules, functions, and variables; `PascalCase` for classes; and `UPPER_SNAKE_CASE` for constants. Keep CLI behavior deterministic, use `pathlib`, and avoid third-party packages. Wrap commands, paths, JSON keys, and identifiers in backticks.
 
 ## Testing guidelines
 
-No testing framework or coverage threshold exists yet. Every behavioral change must include automated tests under `tests/`, including normal, malformed-input, and pricing-boundary cases. Use sanitized, minimal fixtures; tests must not depend on live billing accounts or mutable provider prices. Document the exact test command when the framework is introduced.
+Use `unittest`; name files `test_*.py` and methods `test_*`. Every behavioral change should cover a successful case plus malformed input or reconciliation boundaries. Fixtures must be minimal and sanitized. Tests may not depend on network access, live billing accounts, mutable prices, clock time, or user-specific filesystem paths.
 
 ## Commit and pull request guidelines
 
-There is no Git history from which to infer an established convention. Use focused, imperative Conventional Commits, for example `feat(audit): add token-cost parser` or `docs: explain pricing snapshots`. Pull requests should state the purpose, affected paths, validation performed, and any assumptions about currency or pricing dates. Link related issues and include screenshots only for visual output changes.
+Use focused, imperative Conventional Commits, for example `feat(audit): add snapshot validation` or `docs: clarify pricing boundaries`. Pull requests should state purpose, affected paths, validation performed, and assumptions about currency or pricing dates. Link related issues and include screenshots only when report presentation changes.
 
 ## Security and agent instructions
 
-Never commit API keys, raw billing exports, account identifiers, or customer prompts. Use ignored local environment files and sanitized examples. Before invoking GrokGo MCP tools, read `/Users/wukaibing/.grok-go/agents-guide.md`.
+Never commit API keys, raw billing exports, account identifiers, customer prompts, private paths, or per-event ledgers. Preserve the report's distinction between observed facts and estimated cost, attribution, and Agent-hours. Use ignored local files and sanitized fixtures. Before invoking GrokGo MCP tools, read `/Users/wukaibing/.grok-go/agents-guide.md`.

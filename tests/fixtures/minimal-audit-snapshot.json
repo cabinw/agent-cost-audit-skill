@@ -1,0 +1,180 @@
+{
+  "schema_version": "agent-cost-audit/v1",
+  "project": {
+    "name": "Minimal Agent Project"
+  },
+  "status": "fixture",
+  "provenance": {
+    "kind": "synthetic_test_fixture"
+  },
+  "generated_at": "2026-01-02T04:00:00Z",
+  "window": {
+    "start": "2026-01-01T00:00:00+00:00",
+    "end": "2026-01-02T04:00:00+00:00",
+    "timezone": "UTC",
+    "partial_end_day": true
+  },
+  "sanitization": {
+    "level": "sanitized_aggregate",
+    "removed": [
+      "direct identifiers",
+      "absolute filesystem paths",
+      "raw prompts and per-event payloads"
+    ]
+  },
+  "totals": {
+    "input_tokens": 1000,
+    "cached_tokens": 700,
+    "output_tokens": 100,
+    "total_tokens": 1100,
+    "requests": 10,
+    "identifiable_cost_usd": 1.25,
+    "proxy_ceiling_usd": 2.0
+  },
+  "models": [
+    {
+      "model": "priced-model",
+      "input_tokens": 600,
+      "cached_tokens": 500,
+      "output_tokens": 50,
+      "total_tokens": 650,
+      "requests": 6,
+      "api_equivalent_base_usd": 1.25
+    },
+    {
+      "model": "unknown-model",
+      "input_tokens": 400,
+      "cached_tokens": 200,
+      "output_tokens": 50,
+      "total_tokens": 450,
+      "requests": 4,
+      "api_equivalent_base_usd": null
+    }
+  ],
+  "daily": [
+    {
+      "day": "2026-01-01",
+      "input_tokens": 700,
+      "cached_tokens": 500,
+      "output_tokens": 60,
+      "total_tokens": 760,
+      "requests": 7,
+      "identifiable_cost_usd": 1.0
+    },
+    {
+      "day": "2026-01-02",
+      "input_tokens": 300,
+      "cached_tokens": 200,
+      "output_tokens": 40,
+      "total_tokens": 340,
+      "requests": 3,
+      "identifiable_cost_usd": 0.25
+    }
+  ],
+  "transaction_categories": [
+    {
+      "category": "Testing",
+      "input_tokens": 600,
+      "cached_tokens": 500,
+      "output_tokens": 50,
+      "total_tokens": 650,
+      "requests": 6,
+      "active_hours": 2.5,
+      "sessions": 2
+    },
+    {
+      "category": "Implementation",
+      "input_tokens": 400,
+      "cached_tokens": 200,
+      "output_tokens": 50,
+      "total_tokens": 450,
+      "requests": 4,
+      "active_hours": 1.5,
+      "sessions": 1
+    }
+  ],
+  "ui_attribution": [
+    {
+      "id": "root-main",
+      "input_tokens": 800,
+      "cached_tokens": 600,
+      "output_tokens": 80,
+      "total_tokens": 880,
+      "requests": 8,
+      "active_hours": 3.0,
+      "sessions": 2
+    },
+    {
+      "id": "unattributed",
+      "input_tokens": 200,
+      "cached_tokens": 100,
+      "output_tokens": 20,
+      "total_tokens": 220,
+      "requests": 2,
+      "active_hours": 1.0,
+      "sessions": 1
+    },
+    {
+      "id": "audit-self",
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "requests": 0,
+      "active_hours": 0.0,
+      "sessions": 0
+    }
+  ],
+  "tool_calls": [
+    {
+      "tool_group": "Local checks",
+      "calls": 12
+    }
+  ],
+  "context_buckets": [
+    {
+      "bucket": "≤32K",
+      "requests": 4,
+      "raw_tokens": 100
+    },
+    {
+      "bucket": "32K–128K",
+      "requests": 6,
+      "raw_tokens": 1200
+    },
+    {
+      "bucket": "128K–272K",
+      "requests": 0,
+      "raw_tokens": 0
+    },
+    {
+      "bucket": ">272K",
+      "requests": 0,
+      "raw_tokens": 0
+    }
+  ],
+  "quality_output": {
+    "commits": 3,
+    "insertions": 20,
+    "deletions": 4,
+    "commit_types": [
+      {
+        "type": "feat",
+        "count": 2
+      },
+      {
+        "type": "test",
+        "count": 1
+      }
+    ]
+  },
+  "efficiency_signals": {
+    "agent_active_hours_capped_5m": 4.0,
+    "average_tokens_per_request": 110.0,
+    "cache_share_of_input": 0.7
+  },
+  "methodology": {
+    "distribution": "This public copy contains sanitized aggregate data only.",
+    "cost": "Unknown prices remain null."
+  }
+}

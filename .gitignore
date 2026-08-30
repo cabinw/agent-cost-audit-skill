@@ -1,0 +1,19 @@
+.DS_Store
+*.local
+*.log
+*.py[cod]
+__pycache__/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Private inputs and local report builds
+/handoff/
+/design/
+/samples/
+/output/
+/local-output/
+/tmp/
+/reports/private/

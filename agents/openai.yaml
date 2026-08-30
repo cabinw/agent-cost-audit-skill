@@ -1,0 +1,7 @@
+interface:
+  display_name: "Agent Cost Audit"
+  short_description: "Audit agent usage, cost, and efficiency"
+  default_prompt: "使用 $agent-cost-audit 审计当前项目，生成已对账的 JSON、QA 与简洁 HTML 报告。"
+
+policy:
+  allow_implicit_invocation: true

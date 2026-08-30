@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Compile Python
+        run: python3 -m compileall -q scripts tests
+
+      - name: Run tests
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Validate synthetic fixture
+        run: python3 scripts/audit_report.py validate --input tests/fixtures/minimal-audit-snapshot.json
+
+      - name: Build synthetic fixture
+        run: python3 scripts/audit_report.py build --input tests/fixtures/minimal-audit-snapshot.json --output-dir /tmp/agent-cost-audit
